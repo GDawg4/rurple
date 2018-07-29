@@ -8,6 +8,6 @@ public class Wall {
 
     @Override
     public String toString() {
-        return "*";
+        return "*" + this.coordinates[0] + this.coordinates[1];
     }
 }
