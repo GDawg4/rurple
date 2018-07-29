@@ -1,4 +1,5 @@
 public class Robot {
+    private int coordinates[] = new int[2];
     private int direction;
     private int coins;
 
@@ -13,10 +14,11 @@ public class Robot {
             case 3:
                 return "v";
         }
+        return "Hola";
     }
 
     @Override
     public String toString() {
-        return Direction();
+        return Direction(direction);
     }
 }

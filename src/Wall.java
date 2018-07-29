@@ -1,6 +1,10 @@
 public class Wall {
-    private int x;
-    private int y;
+    private int coordinates[] = new int[2];
+
+    public void setCoordinates(int x, int y) {
+        coordinates[0] = x;
+        coordinates[1] = y;
+    }
 
     @Override
     public String toString() {
