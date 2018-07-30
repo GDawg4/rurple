@@ -6,8 +6,12 @@ public class Wall {
         coordinates[1] = y;
     }
 
+    public int[] getCoordinates() {
+        return coordinates;
+    }
+
     @Override
     public String toString() {
-        return "*" + this.coordinates[0] + this.coordinates[1];
+        return "*";
     }
 }

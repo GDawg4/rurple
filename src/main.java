@@ -25,7 +25,7 @@ public class main {
         }
         Maps mapToSolve = new Maps();
         mapToSolve.createMap(map);
-        System.out.println(mapToSolve.toString());
+        System.out.println(mapToSolve.getMap());
 
 
         input = new Scanner(System.in);

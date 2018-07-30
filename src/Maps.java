@@ -2,9 +2,9 @@ import java.util.ArrayList;
 
 public class Maps {
     private int[] mapSize = new int[2];
-    ArrayList<Wall> listOfWalls = new ArrayList<Wall>();
-    ArrayList<PileOfCoins> listOfPiles = new ArrayList<>();
-    ArrayList<BlankSpaces> listOfBlankSpaces = new ArrayList<>();
+    private ArrayList<Wall> listOfWalls = new ArrayList<>();
+    private ArrayList<PileOfCoins> listOfPiles = new ArrayList<>();
+    private ArrayList<BlankSpaces> listOfBlankSpaces = new ArrayList<>();
 
     public boolean hasCoins(String stringToCheck){
         try{
@@ -59,7 +59,6 @@ public class Maps {
             for (int s = 0; s < mapSize[1]; s++) {
                 letra = oneRow.charAt(s);
                 String letter = String.valueOf(letra);
-                System.out.println(letter);
                 if (letter.equals("*")){
                     Wall wall = new Wall();
                     wall.setCoordinates(i,s);
@@ -82,11 +81,25 @@ public class Maps {
        return size;
     }
 
-    public String getMap(){
-            for(int i = 0; i<4; i++){
-                for (int s = 0; s<6;s++){
+    public String getMap() {
+        String finalString = "";
+        for(int i = 0; i<4;i++){
+            for (int s = 0; s<6;s++){
+                for (Wall searchWall : listOfWalls) {
+                    if (searchWall.getCoordinates()[0] == i && searchWall.getCoordinates()[1] == s) {
+                        finalString = finalString + searchWall;
+                        break;
+                    }
+                }
+                for (PileOfCoins searchPiles : listOfPiles){
+                    if(searchPiles.getCoordinates()[0] == i && searchPiles.getCoordinates()[1] == s){
+                        finalString = finalString + searchPiles;
+                        break;
+                    }
                 }
             }
+        }
+        return finalString;
     }
     @Override
     public String toString() {

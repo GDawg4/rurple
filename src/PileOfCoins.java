@@ -7,12 +7,17 @@ public class PileOfCoins {
         this.coordinates[1] = y;
     }
 
+    public int[] getCoordinates() {
+        return coordinates;
+    }
+
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
     @Override
     public String toString() {
-        return Integer.toString(quantity);
+        String returnQuantity = String.valueOf(this.quantity);
+        return returnQuantity;
     }
 }
