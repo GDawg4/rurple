@@ -9,9 +9,6 @@ import java.util.stream.Stream;
 
 
 public class main {
-    //public static int getLength(String textFile){
-        //BufferedReader input = new BufferedReader(textFile);
-   //}
     public static void main (String[] args) {
         ArrayList<String> map = new ArrayList<>();
         ArrayList<String> commands = new ArrayList<>();
@@ -27,7 +24,7 @@ public class main {
             System.out.println("Error");
         }
         Maps mapToSolve = new Maps();
-        mapToSolve.getMap(map);
+        mapToSolve.createMap(map);
         System.out.println(mapToSolve.toString());
 
 

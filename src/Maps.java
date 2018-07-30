@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public class Maps {
+    private int[] mapSize = new int[2];
     ArrayList<Wall> listOfWalls = new ArrayList<Wall>();
     ArrayList<PileOfCoins> listOfPiles = new ArrayList<>();
     ArrayList<BlankSpaces> listOfBlankSpaces = new ArrayList<>();
@@ -49,12 +50,13 @@ public class Maps {
         }
     }
 
-    public void getMap(ArrayList<String> mapText) {
+    public void createMap(ArrayList<String> mapText) {
+        int[] mapSize = this.getMapSize(mapText);
         String oneRow;
         char letra;
-        for (int i = 0; i < mapText.size(); i++) {
+        for (int i = 0; i < mapSize[0]; i++) {
             oneRow = mapText.get(i);
-            for (int s = 0; s < mapText.get(i).length(); s++) {
+            for (int s = 0; s < mapSize[1]; s++) {
                 letra = oneRow.charAt(s);
                 String letter = String.valueOf(letra);
                 System.out.println(letter);
@@ -73,6 +75,19 @@ public class Maps {
         }
     }
 
+    public int[] getMapSize(ArrayList<String> mapText){
+       int[] size = new int[2];
+       size[0] = mapText.size();
+       size[1] = mapText.get(1).length();
+       return size;
+    }
+
+    public String getMap(){
+            for(int i = 0; i<4; i++){
+                for (int s = 0; s<6;s++){
+                }
+            }
+    }
     @Override
     public String toString() {
         return "Maps{" +

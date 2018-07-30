@@ -1,5 +1,5 @@
 public class PileOfCoins {
-    private int quantity = 0;
+    private int quantity;
     private int coordinates[] = new int[2];
 
     public void setCoordinates(int x, int y) {
