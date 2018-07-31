@@ -5,6 +5,7 @@ public class Maps {
     private ArrayList<Wall> listOfWalls = new ArrayList<>();
     private ArrayList<PileOfCoins> listOfPiles = new ArrayList<>();
     private ArrayList<BlankSpaces> listOfBlankSpaces = new ArrayList<>();
+    private Robot newRobot;
 
     public boolean hasCoins(String stringToCheck){
         try{
@@ -36,7 +37,7 @@ public class Maps {
     }
 
     public void createRobot(String robotLetter, int x, int y){
-        Robot newRobot = new Robot();
+        newRobot = new Robot();
         newRobot.setCoordinates(x,y);
         switch (robotLetter){
             case "^":
@@ -81,21 +82,34 @@ public class Maps {
        return size;
     }
 
+    
+
     public String getMap() {
         String finalString = "";
         for(int i = 0; i<4;i++){
+            finalString += "\n";
             for (int s = 0; s<6;s++){
+                boolean isEmptySpace = true;
                 for (Wall searchWall : listOfWalls) {
                     if (searchWall.getCoordinates()[0] == i && searchWall.getCoordinates()[1] == s) {
                         finalString = finalString + searchWall;
+                        isEmptySpace = false;
                         break;
                     }
                 }
                 for (PileOfCoins searchPiles : listOfPiles){
                     if(searchPiles.getCoordinates()[0] == i && searchPiles.getCoordinates()[1] == s){
                         finalString = finalString + searchPiles;
+                        isEmptySpace = false;
                         break;
                     }
+                }
+                if (newRobot.getCoordinates()[0] == i && newRobot.getCoordinates()[1] == s){
+                    finalString = finalString + newRobot;
+                    isEmptySpace = false;
+                }
+                else if (isEmptySpace){
+                    finalString = finalString + " ";
                 }
             }
         }

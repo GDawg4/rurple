@@ -12,7 +12,17 @@ public class Robot {
         this.direction = direction;
     }
 
-    public String Direction(int direction){
+    public int[] getCoordinates() {
+        return coordinates;
+    }
+
+    public void rotate(){
+        this.direction += 1;
+        this.direction = direction%4;
+    }
+
+    @Override
+    public String toString() {
         switch (direction){
             case 0:
                 return "^";
@@ -24,10 +34,5 @@ public class Robot {
                 return "<";
         }
         return "Hola";
-    }
-
-    @Override
-    public String toString() {
-        return Direction(direction);
     }
 }
