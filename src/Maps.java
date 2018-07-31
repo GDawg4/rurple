@@ -4,7 +4,6 @@ public class Maps {
     private int[] mapSize = new int[2];
     private ArrayList<Wall> listOfWalls = new ArrayList<>();
     private ArrayList<PileOfCoins> listOfPiles = new ArrayList<>();
-    private ArrayList<BlankSpaces> listOfBlankSpaces = new ArrayList<>();
     private Robot newRobot;
 
     public boolean hasCoins(String stringToCheck){
@@ -52,12 +51,12 @@ public class Maps {
     }
 
     public void createMap(ArrayList<String> mapText) {
-        int[] mapSize = this.getMapSize(mapText);
+        int mapSize = getMapSize(mapText);
         String oneRow;
         char letra;
-        for (int i = 0; i < mapSize[0]; i++) {
+        for (int i = 0; i < mapSize; i++) {
             oneRow = mapText.get(i);
-            for (int s = 0; s < mapSize[1]; s++) {
+            for (int s = 0; s < getRowSize(oneRow); s++) {
                 letra = oneRow.charAt(s);
                 String letter = String.valueOf(letra);
                 if (letter.equals("*")){
@@ -75,52 +74,61 @@ public class Maps {
         }
     }
 
-    public int[] getMapSize(ArrayList<String> mapText){
-       int[] size = new int[2];
-       size[0] = mapText.size();
-       size[1] = mapText.get(1).length();
+    public int getMapSize(ArrayList<String> mapText){
+       int size = mapText.size();
        return size;
     }
 
-    
+    public int getRowSize(String row){
+        return row.length();
+    }
 
     public String getMap() {
         String finalString = "";
-        for(int i = 0; i<4;i++){
+        for(int i = 0; i<15;i++){
             finalString += "\n";
-            for (int s = 0; s<6;s++){
+            for (int s = 0; s<15;s++){
                 boolean isEmptySpace = true;
                 for (Wall searchWall : listOfWalls) {
                     if (searchWall.getCoordinates()[0] == i && searchWall.getCoordinates()[1] == s) {
-                        finalString = finalString + searchWall;
-                        isEmptySpace = false;
-                        break;
-                    }
-                }
-                for (PileOfCoins searchPiles : listOfPiles){
-                    if(searchPiles.getCoordinates()[0] == i && searchPiles.getCoordinates()[1] == s){
-                        finalString = finalString + searchPiles;
+                        finalString += searchWall;
                         isEmptySpace = false;
                         break;
                     }
                 }
                 if (newRobot.getCoordinates()[0] == i && newRobot.getCoordinates()[1] == s){
-                    finalString = finalString + newRobot;
+                    finalString += newRobot;
                     isEmptySpace = false;
                 }
-                else if (isEmptySpace){
-                    finalString = finalString + " ";
+                for (PileOfCoins searchPiles : listOfPiles){
+                    if(searchPiles.getCoordinates()[0] == i && searchPiles.getCoordinates()[1] == s){
+                        finalString += searchPiles;
+                        isEmptySpace = false;
+                        break;
+                    }
+                }
+                if (isEmptySpace){
+                    finalString += " ";
                 }
             }
         }
         return finalString;
     }
+
+    public void searchForWalls(int direccion){
+        //list
+        if(direccion == 0){
+
+        }
+    }
+
+    public void makeInstructions(){
+
+    }
     @Override
     public String toString() {
         return "Maps{" +
                 "listOfWalls=" + listOfWalls +
-                ", listOfPiles=" + listOfPiles +
-                ", listOfBlankSpaces=" + listOfBlankSpaces +
-                '}';
+                ", listOfPiles=" + listOfPiles+ "}";
     }
 }

@@ -27,7 +27,6 @@ public class main {
         mapToSolve.createMap(map);
         System.out.println(mapToSolve.getMap());
 
-
         input = new Scanner(System.in);
         System.out.println("Ingrese el nombre del archivo de texto que contiene las instrucciones");
         String directionsPath = input.nextLine();

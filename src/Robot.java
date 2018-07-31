@@ -16,7 +16,7 @@ public class Robot {
         return coordinates;
     }
 
-    public void rotate(){
+    public void rotateRobot(){
         this.direction += 1;
         this.direction = direction%4;
     }
