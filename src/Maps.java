@@ -69,6 +69,7 @@ public class Maps {
                 }
                 else if(hasRobot(letter)){
                     createRobot(letter, i ,s);
+                    newRobot.setDirection(0);
                 }
             }
         }
@@ -98,6 +99,7 @@ public class Maps {
                 }
                 if (newRobot.getCoordinates()[0] == i && newRobot.getCoordinates()[1] == s){
                     finalString += newRobot;
+                    System.out.println(newRobot);
                     isEmptySpace = false;
                 }
                 for (PileOfCoins searchPiles : listOfPiles){
@@ -115,14 +117,29 @@ public class Maps {
         return finalString;
     }
 
-    public void searchForWalls(int direccion){
-        //list
-        if(direccion == 0){
+    public boolean searchForWalls() {
+        for(Wall searchWall: listOfWalls){
+            if(newRobot.getDirection() == 0){
+                System.out.println(newRobot.getCoordinates()[0]);
+                System.out.println(newRobot.getCoordinates()[1]);
+                if (searchWall.getCoordinates()[0] == newRobot.getCoordinates()[0] && searchWall.getCoordinates()[0] == newRobot.getCoordinates()[0]+1){
+                    return false;
+                }
+                else{
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
+    public void rotateRobot(){
+        if(searchForWalls()){
+            newRobot.rotate();
         }
     }
 
-    public void makeInstructions(){
+    public void executeInstructions(){
 
     }
     @Override

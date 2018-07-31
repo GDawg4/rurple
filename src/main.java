@@ -26,6 +26,8 @@ public class main {
         Maps mapToSolve = new Maps();
         mapToSolve.createMap(map);
         System.out.println(mapToSolve.getMap());
+        mapToSolve.rotateRobot();
+        System.out.println(mapToSolve.getMap());
 
         input = new Scanner(System.in);
         System.out.println("Ingrese el nombre del archivo de texto que contiene las instrucciones");

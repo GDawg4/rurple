@@ -8,6 +8,10 @@ public class Robot {
         this.coordinates[1] = y;
     }
 
+    public int getDirection() {
+        return direction;
+    }
+
     public void setDirection(int direction) {
         this.direction = direction;
     }
@@ -16,7 +20,7 @@ public class Robot {
         return coordinates;
     }
 
-    public void rotateRobot(){
+    public void rotate(){
         this.direction += 1;
         this.direction = direction%4;
     }
