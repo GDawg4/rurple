@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Maps {
     private int[] mapSize = new int[2];
-    private ArrayList<Wall> listOfWalls = new ArrayList<>();
+    public ArrayList<Wall> listOfWalls = new ArrayList<>();
     private ArrayList<PileOfCoins> listOfPiles = new ArrayList<>();
     private Robot newRobot;
 
@@ -41,12 +41,16 @@ public class Maps {
         switch (robotLetter){
             case "^":
                 newRobot.setDirection(0);
+                break;
             case ">":
                 newRobot.setDirection(1);
+                break;
             case "v":
                 newRobot.setDirection(2);
+                break;
             case "<":
                 newRobot.setDirection(3);
+                break;
         }
     }
 
@@ -60,8 +64,7 @@ public class Maps {
                 letra = oneRow.charAt(s);
                 String letter = String.valueOf(letra);
                 if (letter.equals("*")){
-                    Wall wall = new Wall();
-                    wall.setCoordinates(i,s);
+                    Wall wall = new Wall(i, s);
                     listOfWalls.add(wall);
                 }
                 else if(hasCoins(letter)){
@@ -69,7 +72,6 @@ public class Maps {
                 }
                 else if(hasRobot(letter)){
                     createRobot(letter, i ,s);
-                    newRobot.setDirection(0);
                 }
             }
         }
@@ -86,10 +88,11 @@ public class Maps {
 
     public String getMap() {
         String finalString = "";
-        for(int i = 0; i<15;i++){
+        for(int i = 0; i<6;i++){
             finalString += "\n";
-            for (int s = 0; s<15;s++){
+            for (int s = 0; s<7;s++){
                 boolean isEmptySpace = true;
+                boolean robotHere = false;
                 for (Wall searchWall : listOfWalls) {
                     if (searchWall.getCoordinates()[0] == i && searchWall.getCoordinates()[1] == s) {
                         finalString += searchWall;
@@ -98,15 +101,18 @@ public class Maps {
                     }
                 }
                 if (newRobot.getCoordinates()[0] == i && newRobot.getCoordinates()[1] == s){
-                    finalString += newRobot;
-                    System.out.println(newRobot);
+                    finalString += newRobot.toString();
+                    robotHere = true;
                     isEmptySpace = false;
+
                 }
-                for (PileOfCoins searchPiles : listOfPiles){
-                    if(searchPiles.getCoordinates()[0] == i && searchPiles.getCoordinates()[1] == s){
-                        finalString += searchPiles;
-                        isEmptySpace = false;
-                        break;
+                if(!robotHere) {
+                    for (PileOfCoins searchPiles : listOfPiles) {
+                        if (searchPiles.getCoordinates()[0] == i && searchPiles.getCoordinates()[1] == s) {
+                            finalString += searchPiles;
+                            isEmptySpace = false;
+                            break;
+                        }
                     }
                 }
                 if (isEmptySpace){
@@ -120,27 +126,64 @@ public class Maps {
     public boolean searchForWalls() {
         for(Wall searchWall: listOfWalls){
             if(newRobot.getDirection() == 0){
-                System.out.println(newRobot.getCoordinates()[0]);
-                System.out.println(newRobot.getCoordinates()[1]);
-                if (searchWall.getCoordinates()[0] == newRobot.getCoordinates()[0] && searchWall.getCoordinates()[0] == newRobot.getCoordinates()[0]+1){
+                if (searchWall.getCoordinates()[0] == newRobot.getCoordinates()[0]-1 && searchWall.getCoordinates()[1] == newRobot.getCoordinates()[1]){
                     return false;
                 }
-                else{
-                    return true;
+            }
+            else if(newRobot.getDirection() == 1) {
+                if (searchWall.getCoordinates()[0] == newRobot.getCoordinates()[0] && searchWall.getCoordinates()[1] == newRobot.getCoordinates()[1]+1) {
+                    return false;
                 }
+            }
+            else if(newRobot.getDirection() == 2) {
+                if (searchWall.getCoordinates()[0] == newRobot.getCoordinates()[0]+1 && searchWall.getCoordinates()[1] == newRobot.getCoordinates()[1]) {
+                    return false;
+                }
+            }
+            else if (newRobot.getDirection() == 3) {
+                if (searchWall.getCoordinates()[0] == newRobot.getCoordinates()[0] && searchWall.getCoordinates()[1] == newRobot.getCoordinates()[1]-1) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public void rotateRobot(){
+        newRobot.rotate();
+    }
+
+    public void moveRobot(){
+        if (searchForWalls()){
+            newRobot.move();
+        }
+        else{
+        }
+    }
+
+    public boolean robotOnCoins(){
+        for(PileOfCoins testPile : listOfPiles){
+            if(testPile.getCoordinates()[0] == newRobot.getCoordinates()[0] && testPile.getCoordinates()[1] == newRobot.getCoordinates()[1] && testPile.getQuantity()>0){
+                testPile.takeOne();
+                newRobot.pickOne();
+                System.out.println(testPile.toString());
+                return true;
             }
         }
         return false;
     }
 
-    public void rotateRobot(){
-        if(searchForWalls()){
-            newRobot.rotate();
+    public void executeInstructions(ArrayList<String> instructions){
+        for(String oneInstruction:instructions){
+            switch (oneInstruction){
+                case "MOVE":
+                    this.moveRobot();
+                case "ROTATE":
+                    this.rotateRobot();
+                case "PICK":
+                    this.robotOnCoins()
+            }
         }
-    }
-
-    public void executeInstructions(){
-
     }
     @Override
     public String toString() {

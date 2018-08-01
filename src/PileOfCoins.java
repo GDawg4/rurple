@@ -15,6 +15,14 @@ public class PileOfCoins {
         this.quantity = quantity;
     }
 
+    public void takeOne(){
+        this.quantity -= 1;
+    }
+
+    public int getQuantity(){
+        return this.quantity;
+    }
+
     @Override
     public String toString() {
         String returnQuantity = String.valueOf(this.quantity);
