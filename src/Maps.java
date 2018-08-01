@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class Maps {
-    public ArrayList<Wall> listOfWalls = new ArrayList<>();
+    private ArrayList<Wall> listOfWalls = new ArrayList<>();
     private ArrayList<PileOfCoins> listOfPiles = new ArrayList<>();
     private Robot newRobot;
     private ArrayList<String> bareText;
@@ -11,7 +11,7 @@ public class Maps {
         this.bareText = bareText;
     }
 
-    public boolean hasCoins(String stringToCheck) {
+    private boolean hasCoins(String stringToCheck) {
         try {
             int number = Integer.valueOf(stringToCheck);
             if (1 <= number && number <= 9) {
@@ -24,7 +24,7 @@ public class Maps {
         }
     }
 
-    public void createCoins(String numberOfCoins, int x, int y) {
+    private void createCoins(String numberOfCoins, int x, int y) {
         int newCoins = Integer.valueOf(numberOfCoins);
         PileOfCoins newPile = new PileOfCoins();
         newPile.setQuantity(newCoins);
@@ -32,14 +32,14 @@ public class Maps {
         listOfPiles.add(newPile);
     }
 
-    public boolean hasRobot(String stringToCheck) {
+    private boolean hasRobot(String stringToCheck) {
         if (stringToCheck.equals("^") || stringToCheck.equals("<") || stringToCheck.equals(">") || stringToCheck.equals("v")) {
             return true;
         }
         return false;
     }
 
-    public void createRobot(String robotLetter, int x, int y) {
+    private void createRobot(String robotLetter, int x, int y) {
         newRobot = new Robot();
         newRobot.setCoordinates(x, y);
         switch (robotLetter) {
@@ -79,16 +79,16 @@ public class Maps {
         }
     }
 
-    public int getMapSize() {
+    private int getMapSize() {
         int size = bareText.size();
         return size;
     }
 
-    public int getRowSize(String row) {
+    private int getRowSize(String row) {
         return row.length();
     }
 
-    public String getMap() {
+    private String getMap() {
         String finalString = "";
         for (int i = 0; i < bareText.size(); i++) {
             finalString += "\n";
@@ -125,7 +125,7 @@ public class Maps {
         return finalString;
     }
 
-    public boolean isOutOfBounds() {
+    private boolean isOutOfBounds() {
         if (newRobot.getDirection() == 0) {
             if (0 > newRobot.getCoordinates()[0] - 1) {
                 return false;
@@ -146,7 +146,7 @@ public class Maps {
         return true;
     }
 
-    public boolean searchForWalls() {
+    private boolean searchForWalls() {
         for (Wall searchWall : listOfWalls) {
             if (newRobot.getDirection() == 0) {
                 if (searchWall.getCoordinates()[0] == newRobot.getCoordinates()[0] - 1 && searchWall.getCoordinates()[1] == newRobot.getCoordinates()[1]) {
@@ -169,18 +169,18 @@ public class Maps {
         return true;
     }
 
-    public void rotateRobot() {
+    private void rotateRobot() {
         newRobot.rotate();
     }
 
-    public void moveRobot() {
+    private void moveRobot() {
         if (searchForWalls() && isOutOfBounds()) {
             newRobot.move();
         } else {
         }
     }
 
-    public boolean robotOnCoins() {
+    private boolean robotOnCoins() {
         for (PileOfCoins testPile : listOfPiles) {
             if (testPile.getCoordinates()[0] == newRobot.getCoordinates()[0] && testPile.getCoordinates()[1] == newRobot.getCoordinates()[1] && testPile.getQuantity() > 0) {
                 testPile.takeOne();
@@ -191,7 +191,7 @@ public class Maps {
         return false;
     }
 
-    public String mapIsDone() {
+    private String mapIsDone() {
         int sumOfCoins = 0;
         for (PileOfCoins onePile : this.listOfPiles) {
             sumOfCoins += onePile.getQuantity();
@@ -202,7 +202,7 @@ public class Maps {
         return "No ha recogido todas las monedas, lo siento!";
     }
 
-    public void executeInstructions(ArrayList<String> instructions) {
+    private void executeInstructions(ArrayList<String> instructions) {
         for (String oneInstruction : instructions) {
             System.out.println(this.getMap());
             switch (oneInstruction) {
