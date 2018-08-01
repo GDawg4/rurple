@@ -1,4 +1,3 @@
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -24,8 +23,8 @@ public class main {
             System.out.println("Error");
         }
         Maps mapToSolve = new Maps();
-        mapToSolve.createMap(map);
         mapToSolve.setBareText(map);
+        mapToSolve.createMap();
 
         input = new Scanner(System.in);
         System.out.println("Ingrese el nombre del archivo de texto que contiene las instrucciones");
@@ -39,5 +38,6 @@ public class main {
             System.out.println("Error");
         }
         mapToSolve.executeInstructions(commands);
+        System.out.println(mapToSolve.mapIsDone());
     }
 }

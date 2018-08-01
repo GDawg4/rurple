@@ -2,6 +2,8 @@ public class PileOfCoins {
     private int quantity;
     private int coordinates[] = new int[2];
 
+
+
     public void setCoordinates(int x, int y) {
         this.coordinates[0] = x;
         this.coordinates[1] = y;
