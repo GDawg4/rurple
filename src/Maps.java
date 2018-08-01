@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class Maps {
     private int mapSize;
@@ -191,6 +192,12 @@ public class Maps {
                     break;
             }
             System.out.println(this.getMap());
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            }catch (InterruptedException exception){
+                System.out.println("Error");
+            }
+
         }
     }
     @Override
