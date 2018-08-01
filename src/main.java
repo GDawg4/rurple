@@ -25,6 +25,7 @@ public class main {
         }
         Maps mapToSolve = new Maps();
         mapToSolve.createMap(map);
+        mapToSolve.setBareText(map);
 
         input = new Scanner(System.in);
         System.out.println("Ingrese el nombre del archivo de texto que contiene las instrucciones");
@@ -37,5 +38,6 @@ public class main {
         }catch (IOException exception){
             System.out.println("Error");
         }
+        mapToSolve.executeInstructions(commands);
     }
 }

@@ -1,10 +1,14 @@
 import java.util.ArrayList;
 
 public class Maps {
-    private int[] mapSize = new int[2];
+    private int mapSize;
     public ArrayList<Wall> listOfWalls = new ArrayList<>();
     private ArrayList<PileOfCoins> listOfPiles = new ArrayList<>();
     private Robot newRobot;
+    private ArrayList<String> bareText;
+    public void setBareText(ArrayList<String> bareText) {
+        this.bareText = bareText;
+    }
 
     public boolean hasCoins(String stringToCheck){
         try{
@@ -88,9 +92,9 @@ public class Maps {
 
     public String getMap() {
         String finalString = "";
-        for(int i = 0; i<6;i++){
+        for(int i = 0; i<bareText.size();i++){
             finalString += "\n";
-            for (int s = 0; s<7;s++){
+            for (int s = 0; s<bareText.get(1).length();s++){
                 boolean isEmptySpace = true;
                 boolean robotHere = false;
                 for (Wall searchWall : listOfWalls) {
@@ -178,11 +182,15 @@ public class Maps {
             switch (oneInstruction){
                 case "MOVE":
                     this.moveRobot();
+                    break;
                 case "ROTATE":
                     this.rotateRobot();
+                    break;
                 case "PICK":
-                    this.robotOnCoins()
+                    this.robotOnCoins();
+                    break;
             }
+            System.out.println(this.getMap());
         }
     }
     @Override
