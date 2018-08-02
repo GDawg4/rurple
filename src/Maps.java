@@ -11,6 +11,32 @@ public class Maps {
         this.bareText = bareText;
     }
 
+    public void createMap() {
+        int mapSize = getMapSize();
+        String oneRow;
+        char letra;
+        for (int i = 0; i < mapSize; i++) {
+            oneRow = bareText.get(i);
+            for (int s = 0; s < getRowSize(oneRow); s++) {
+                letra = oneRow.charAt(s);
+                String letter = String.valueOf(letra);
+                if (letter.equals("*")) {
+                    Wall wall = new Wall(i, s);
+                    listOfWalls.add(wall);
+                } else if (hasCoins(letter)) {
+                    createCoins(letter, i, s);
+                } else if (hasRobot(letter)) {
+                    createRobot(letter, i, s);
+                }
+            }
+        }
+    }
+
+    private int getMapSize() {
+        int size = bareText.size();
+        return size;
+    }
+
     private boolean hasCoins(String stringToCheck) {
         try {
             int number = Integer.valueOf(stringToCheck);
@@ -58,30 +84,15 @@ public class Maps {
         }
     }
 
-    public void createMap() {
-        int mapSize = getMapSize();
-        String oneRow;
-        char letra;
-        for (int i = 0; i < mapSize; i++) {
-            oneRow = bareText.get(i);
-            for (int s = 0; s < getRowSize(oneRow); s++) {
-                letra = oneRow.charAt(s);
-                String letter = String.valueOf(letra);
-                if (letter.equals("*")) {
-                    Wall wall = new Wall(i, s);
-                    listOfWalls.add(wall);
-                } else if (hasCoins(letter)) {
-                    createCoins(letter, i, s);
-                } else if (hasRobot(letter)) {
-                    createRobot(letter, i, s);
-                }
+    private boolean robotOnCoins() {
+        for (PileOfCoins testPile : listOfPiles) {
+            if (testPile.getCoordinates()[0] == newRobot.getCoordinates()[0] && testPile.getCoordinates()[1] == newRobot.getCoordinates()[1] && testPile.getQuantity() > 0) {
+                testPile.takeOne();
+                newRobot.pickOne();
+                return true;
             }
         }
-    }
-
-    private int getMapSize() {
-        int size = bareText.size();
-        return size;
+        return false;
     }
 
     private int getRowSize(String row) {
@@ -180,18 +191,7 @@ public class Maps {
         }
     }
 
-    private boolean robotOnCoins() {
-        for (PileOfCoins testPile : listOfPiles) {
-            if (testPile.getCoordinates()[0] == newRobot.getCoordinates()[0] && testPile.getCoordinates()[1] == newRobot.getCoordinates()[1] && testPile.getQuantity() > 0) {
-                testPile.takeOne();
-                newRobot.pickOne();
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private String mapIsDone() {
+    public String mapIsDone() {
         int sumOfCoins = 0;
         for (PileOfCoins onePile : this.listOfPiles) {
             sumOfCoins += onePile.getQuantity();
@@ -202,7 +202,7 @@ public class Maps {
         return "No ha recogido todas las monedas, lo siento!";
     }
 
-    private void executeInstructions(ArrayList<String> instructions) {
+    public void executeInstructions(ArrayList<String> instructions) {
         for (String oneInstruction : instructions) {
             System.out.println(this.getMap());
             switch (oneInstruction) {

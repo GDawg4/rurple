@@ -3,10 +3,6 @@ public class Robot {
     private int direction;
     private int coins = 0;
 
-    public void pickOne(){
-        this.coins = +1;
-    }
-
     public void setCoordinates(int x, int y) {
         this.coordinates[0] = x;
         this.coordinates[1] = y;
@@ -26,7 +22,7 @@ public class Robot {
 
     public void rotate(){
         this.direction += 1;
-        this.direction = direction%4;
+        this.direction = direction%3;
     }
 
     public void move(){
@@ -44,6 +40,10 @@ public class Robot {
                 this.coordinates[1] -= 1;
                 break;
         }
+    }
+
+    public void pickOne(){
+        this.coins = +1;
     }
 
     @Override

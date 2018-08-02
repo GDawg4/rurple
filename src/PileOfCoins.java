@@ -17,12 +17,12 @@ public class PileOfCoins {
         this.quantity = quantity;
     }
 
-    public void takeOne(){
-        this.quantity -= 1;
-    }
-
     public int getQuantity(){
         return this.quantity;
+    }
+
+    public void takeOne(){
+        this.quantity -= 1;
     }
 
     @Override
