@@ -22,7 +22,7 @@ public class Robot {
 
     public void rotate(){
         this.direction += 1;
-        this.direction = direction%3;
+        this.direction = direction%4;
     }
 
     public void move(){
